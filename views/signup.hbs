@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Registration</title>
+    {{!-- sweetaler2 cdn --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Include Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
@@ -104,9 +106,24 @@
                 class="bg-blue-500 text-white p-2 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
                 Register
             </button>
+            <a href="./" class="text-blue-500 hover:underline">Back to Main Page?</a>
         </form>
     </div>
 
 </body>
+<script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    if (urlParams.get('success') === 'true') {
+        // Use SweetAlert2 to show a styled pop-up message
+        Swal.fire({
+            icon: 'success',
+            title: 'User Registration Successful!',
+            showConfirmButton: false,
+            timer: 1500 // Automatically close after 1.5 seconds
+        });
+    }
+</script>
 
 </html>

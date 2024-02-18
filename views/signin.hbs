@@ -23,6 +23,14 @@
         <!-- Sign In Form -->
         <form action="signin" method="POST">
             <div class="mb-4">
+                <label for="userType" class="block text-sm font-medium text-gray-600">Select User Type:</label>
+                <select id="userType" name="userType" class="mt-1 p-2 w-full border rounded-md">
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                    <option value="drcMember">DRC Member</option>
+                </select>
+            </div>
+            <div class="mb-4">
                 <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
                 <input type="email" id="email" name="email" class="w-full border rounded py-2 px-3 focus:outline-none focus:border-blue-500">
             </div>

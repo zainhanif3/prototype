@@ -6,6 +6,7 @@ const app = express();
 const port = 3000;
 const hbs = require ("hbs")
 const session = require ('express-session');
+const passport = require ('passport')
 
 mongoose.connect('mongodb://localhost:27017/prototype', { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -54,8 +55,11 @@ app.get('/signup', (req, res) => {
 app.get('/portal',(req,res)=>{
     res.render('portal')
 });
+app.get('/admin',(req,res)=>{
+    res.render('admin')
+});
 
-app.get('/admin/admin', (req, res) => {
+app.get('/admin', (req, res) => {
     if (req.user.admin) {
       res.render('admin');
     } else {
@@ -91,6 +95,10 @@ app.post('/register', async (req, res) => {
     }
 });
 
+
+
+
+
 //sign in check
 app.post('/signin', async (req, res) => {
   const { email, password } = req.body;
@@ -109,7 +117,7 @@ app.post('/signin', async (req, res) => {
     
 
     if (user.password === password) {
-      res.status(200).redirect('./portal');
+      res.status(200).redirect('/admin');
       
     }else{
       res.send("password not match");

@@ -5,6 +5,7 @@ const path = require("path");
 const app = express();
 const port = 3000;
 const hbs = require ("hbs")
+const session = require ('express-session');
 
 mongoose.connect('mongodb://localhost:27017/prototype', { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -48,6 +49,19 @@ app.get('/password', (req, res)=>{
 app.get('/signup', (req, res) => {
     res.render('signup');
 });
+//render the main user portal page
+
+app.get('/portal',(req,res)=>{
+    res.render('portal')
+});
+
+app.get('/admin/admin', (req, res) => {
+    if (req.user.admin) {
+      res.render('admin');
+    } else {
+      res.redirect('/signin');
+    }
+  });
 
 // Handle user registration
 app.post('/register', async (req, res) => {
@@ -95,11 +109,12 @@ app.post('/signin', async (req, res) => {
     
 
     if (user.password === password) {
-      res.status(200).redirect('/portal');
+      res.status(200).redirect('./portal');
       
     }else{
       res.send("password not match");
     }
+    
     
    
 
@@ -109,6 +124,53 @@ app.post('/signin', async (req, res) => {
     console.error(error);
     res.status(500).json({ message: 'Internal Server Error' });
   }
+});
+
+
+//cases detail
+
+
+const Case = mongoose.model('Case', {
+    title: String,
+    description: String,
+});
+
+// Render cases page
+app.get('/cases', async (req, res) => {
+    const cases = await Case.find();
+    res.render('cases', { cases });
+});
+
+// Render add case form
+app.get('/cases/add', (req, res) => {
+    res.render('add-case');
+});
+
+// Add a new case
+app.post('/cases/add', async (req, res) => {
+    const { title, description } = req.body;
+    const newCase = new Case({ title, description });
+    await newCase.save();
+    res.redirect('/cases');
+});
+
+// Render update case form
+app.get('/cases/update/:id', async (req, res) => {
+    const caseToUpdate = await Case.findById(req.params.id);
+    res.render('update-case', { caseToUpdate });
+});
+
+// Update an existing case
+app.post('/cases/update/:id', async (req, res) => {
+    const { title, description } = req.body;
+    await Case.findByIdAndUpdate(req.params.id, { title, description });
+    res.redirect('/cases');
+});
+
+// Delete a case
+app.post('/cases/delete/:id', async (req, res) => {
+    await Case.findByIdAndRemove(req.params.id);
+    res.redirect('/cases');
 });
 
 

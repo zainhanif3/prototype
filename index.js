@@ -12,7 +12,7 @@ mongoose.connect('mongodb://localhost:27017/prototype', { useNewUrlParser: true,
 
 app.use('views', express.static('views'))
 
-
+//user model
 const User = mongoose.model('User', {
     name: String,
     email: String,
@@ -28,6 +28,14 @@ const User = mongoose.model('User', {
         address: String,
         disputeType: String
     }
+});
+
+//admin model
+const Admin = mongoose.model('Admin', {
+    name: String,
+    email: String,
+    password: String,
+    
 });
 
 console.group(__dirname, "views" );
@@ -57,6 +65,9 @@ app.get('/portal',(req,res)=>{
 });
 app.get('/admin',(req,res)=>{
     res.render('admin')
+});
+app.get('/adminsignin',(req,res)=>{
+    res.render('adminsignin')
 });
 
 app.get('/admin', (req, res) => {
@@ -98,7 +109,6 @@ app.post('/register', async (req, res) => {
 
 
 
-
 //sign in check
 app.post('/signin', async (req, res) => {
   const { email, password } = req.body;
@@ -117,7 +127,7 @@ app.post('/signin', async (req, res) => {
     
 
     if (user.password === password) {
-      res.status(200).redirect('/admin');
+      res.status(200).redirect('/portal');
       
     }else{
       res.send("password not match");
@@ -134,7 +144,40 @@ app.post('/signin', async (req, res) => {
   }
 });
 
-
+//adminsign in check
+app.post('/adminsignin', async (req, res) => {
+    const { email, password } = req.body;
+  
+    try {
+      // Find user by email
+      const admin = await Admin.findOne({ email });
+      
+    
+  
+      if (!admin) {
+        return res.status(401).json({ message: 'Invalid email ' });
+      }
+  
+      // Compare the provided password with the hashed password stored in the database
+      
+  
+      if (admin.password === password) {
+        res.status(200).redirect('/admin');
+        
+      }else{
+        res.send("password not match");
+      }
+      
+      
+     
+  
+      // Redirect to the portal page after successful sign-in
+      
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  });
 //cases detail
 
 

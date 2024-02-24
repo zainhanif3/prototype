@@ -172,7 +172,7 @@ app.post("/adduser", async (req, res) => {
 
 
 // Set up a route to fetch user data by CNIC
-app.get('/users/:cnic', async (req, res) => {
+app.get('/user/:cnic', async (req, res) => {
   try {
     const cnic = req.params.cnic;
 

@@ -127,8 +127,6 @@ app.post("/register", async (req, res) => {
   }
 });
 
-
-
 // ADD USER
 app.post("/adduser", async (req, res) => {
   try {
@@ -157,57 +155,49 @@ app.post("/adduser", async (req, res) => {
   }
 });
 
-
-
-
-
 // Define DRCMember schema
 const drcMemberSchema = new mongoose.Schema({
   name: String,
   position: String,
-  
 });
 
 // Create DRCMember model
-const DRCMember = mongoose.model('DRCMember', drcMemberSchema);
-
+const DRCMember = mongoose.model("DRCMember", drcMemberSchema);
 
 // Routes
-app.get('/drcmembers', async (req, res) => {
+app.get("/drcmembers", async (req, res) => {
   try {
     const members = await DRCMember.find();
-    res.render('drcmembers', { members });
+    res.render("drcmembers", { members });
   } catch (error) {
     console.error(error);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send("Internal Server Error");
   }
 });
 
-app.post('/drcmembers', async (req, res) => {
+app.post("/drcmembers", async (req, res) => {
   const { name, position } = req.body;
 
   try {
     await DRCMember.create({ name, position });
-    res.redirect('/drcmembers');
+    res.redirect("/drcmembers");
   } catch (error) {
     console.error(error);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send("Internal Server Error");
   }
 });
 
-app.get('/drcmembers/:id/delete', async (req, res) => {
+app.get("/drcmembers/:id/delete", async (req, res) => {
   const memberId = req.params.id;
 
   try {
     await DRCMember.findByIdAndDelete(memberId);
-    res.redirect('/drcmembers');
+    res.redirect("/drcmembers");
   } catch (error) {
     console.error(error);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send("Internal Server Error");
   }
 });
-
-
 
 //sign in check
 app.post("/signin", async (req, res) => {
@@ -275,53 +265,55 @@ app.get("/users", async (req, res) => {
 
 //add update and delete user
 
-app.get('/user', async (req, res) => {
+app.get("/user", async (req, res) => {
   const users = await User.find();
-  res.render('user', { users });
+  res.render("user", { users });
 });
 
-app.post('/add-user', async (req, res) => {
+app.post("/add-user", async (req, res) => {
   const { name, email } = req.body;
   const newUser = new User({ name, email });
   await newUser.save();
-  res.redirect('/user');
+  res.redirect("/user");
 });
 
-app.post('/update-user/:id', async (req, res) => {
+app.post("/update-user/:id", async (req, res) => {
   const { name, email } = req.body;
   await User.findByIdAndUpdate(req.params.id, { name, email });
-  res.redirect('/user');
+  res.redirect("/user");
 });
 
-app.get('/delete-user/:id', async (req, res) => {
+app.get("/delete-user/:id", async (req, res) => {
   await User.findByIdAndDelete(req.params.id);
-  res.redirect('/user');
+  res.redirect("/user");
 });
 
-
-app.get('/search', async (req, res) => {
+app.get("/search", async (req, res) => {
   const { searchTerm, searchType } = req.query;
   let users;
 
   switch (searchType) {
-    case 'name':
-      users = await User.find({ name: new RegExp(searchTerm, 'i') });
+    case "name":
+      users = await User.find({ name: new RegExp(searchTerm, "i") });
       break;
-    case 'email':
-      users = await User.find({ email: new RegExp(searchTerm, 'i') });
+    case "email":
+      users = await User.find({ email: new RegExp(searchTerm, "i") });
       break;
-      
+    case "cnic":
+      users = await User.find({ cnic: new RegExp(searchTerm, "i") });
+      break;
+    case "number":
+      users = await User.find({ number: new RegExp(searchTerm, "i") });
+      break;
+
     // Add more cases for other search types (e.g., number, cnic)
 
     default:
       users = await User.find();
   }
 
-  res.render('user', { users });
+  res.render("user", { users });
 });
-
-
-
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

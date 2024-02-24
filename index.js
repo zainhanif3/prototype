@@ -299,6 +299,27 @@ app.get('/delete-user/:id', async (req, res) => {
 });
 
 
+app.get('/search', async (req, res) => {
+  const { searchTerm, searchType } = req.query;
+  let users;
+
+  switch (searchType) {
+    case 'name':
+      users = await User.find({ name: new RegExp(searchTerm, 'i') });
+      break;
+    case 'email':
+      users = await User.find({ email: new RegExp(searchTerm, 'i') });
+      break;
+      
+    // Add more cases for other search types (e.g., number, cnic)
+
+    default:
+      users = await User.find();
+  }
+
+  res.render('user', { users });
+});
+
 
 
 

@@ -4,43 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+      .container{
+        height: 60vh;
+        width: 800px;
+        
+        background-color: rgb(157, 160, 160);
+      }
+      a href{
+        background-color: aqua;
+      }
+    </style>
 </head>
-<body>
+<body class="flex-col">
     
-    <h1 class="text-2xl mb-4">User Page</h1>
+    <h1 class="text-2xl mb-4 p-5 justify-items-center ml-16">User Page</h1>
+<div class="container">
 
-<form action="/add-user" method="post" class="mb-4">
-  <label for="name">Name:</label>
-  <input type="text" name="name" required class="mr-2">
-  <label for="email">Email:</label>
-  <input type="email" name="email" required class="mr-2">
-  <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Add User</button>
-</form>
-
-
-<!-- Search Form -->
-<form action="/search" method="get" class="mb-4">
-  <label for="searchTerm">Search:</label>
-  <input type="text" name="searchTerm" required class="mr-2">
-  <select name="searchType" class="mr-2">
-    <option value="name">Name</option>
-    <option value="email">Email</option>
-    <option value="cnic">Cnic</option>
-    <option value="number">Number</option>
-    <!-- Add more search types as needed (e.g., number, cnic) -->
-  </select>
-  <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Search</button>
-</form>
-
-<ul>
-  {{#each users}}
-  <li class="mb-2">
-    {{name}} - {{email}}
-    <a href="/update-user/{{_id}}" class="text-blue-500 ml-2">Update</a>
-    <a href="/delete-user/{{_id}}" class="text-red-500 ml-2">Delete</a>
-  </li>
-  {{/each}}
-</ul>
+  <form action="/add-user" method="post" class="mb-4 p-5 justify-items-center ml-16">
+    <label for="name">Name:</label>
+    <input type="text" name="name" required class="mr-2">
+    <label for="email">Email:</label>
+    <input type="email" name="email" required class="mr-2">
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Add User</button>
+  </form>
+  
+  
+  <!-- Search Form -->
+  <form action="/search" method="get" class="mb-4 p-5 justify-items-center ml-16 border-gray-600">
+    <label for="searchTerm">Search:</label>
+    <input type="text" name="searchTerm" required class="mr-2">
+    <select name="searchType" class="mr-2 ">
+      <option value="name">Name</option>
+      <option value="email">Email</option>
+      <option value="cnic">Cnic</option>
+      <option value="number">Number</option>
+      <!-- Add more search types as needed (e.g., number, cnic) -->
+    </select>
+    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Search</button>
+  </form>
+  
+  <ul class="mb-4 p-5 justify-items-center ml-16">
+    {{#each users}}
+    <li class="mb-5 p-5 gap-2">
+      {{name}} - {{email}}
+      <a href="/update-user/{{_id}}" class="text-blue-500 ml-44 bg-gray-50 border-l-4 text-2xl">Update</a>
+      <a href="/delete-user/{{_id}}" class="text-red-500 ml-10 bg-gray-50 border-l-4 text-2xl">Delete</a>
+    </li>
+    {{/each}}
+  </ul>
+</div>
 
 </body>
 </html>

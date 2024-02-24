@@ -1,0 +1,27 @@
+<!-- views/user.ejs -->
+
+<html>
+  <head>
+    <title>User Data</title>
+  </head>
+  <body>
+    <h1>User Data</h1>
+    <table border="1">
+      <tr>
+        <th>Name</th>
+        <th>CNIC</th>
+        <th>Actions</th>
+      </tr>
+      <% users.forEach(user => { %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.cnic %></td>
+          <td>
+            <a href="/user/update/<%= user._id %>">Update</a>
+            <a href="/user/delete/<%= user._id %>">Delete</a>
+          </td>
+        </tr>
+      <% }); %>
+    </table>
+  </body>
+</html>

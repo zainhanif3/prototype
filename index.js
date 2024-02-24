@@ -303,7 +303,7 @@ app.get("/search", async (req, res) => {
       users = await User.find({ cnic: new RegExp(searchTerm, "i") });
       break;
     case "number":
-      users = await User.find({ number: new RegExp(searchTerm, "i") });
+      users = await User.find({ contactNumber: new RegExp(searchTerm, "i") });
       break;
 
     // Add more cases for other search types (e.g., number, cnic)

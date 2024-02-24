@@ -6,9 +6,6 @@
   </head>
   <body>
     <h1>User Data</h1>
-    <form action="/users/:cnic" method="get">
-    
-    
     <table border="1" >
       <tr>
         <th>Name</th>
@@ -20,12 +17,11 @@
           <td><%= $users.name %></td>
           <td><%= users.cnic %></td>
           <td>
-            <a href="/user/update/<%= user._name %>">Update</a>
-            <a href="/user/delete/<%= user._email %>">Delete</a>
+            <a href="/user/update/<%= user._id %>">Update</a>
+            <a href="/user/delete/<%= user._id %>">Delete</a>
           </td>
         </tr>
       <% }); %>
     </table>
-    </form>
   </body>
 </html>

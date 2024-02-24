@@ -178,13 +178,14 @@ app.get('/user/:cnic', async (req, res) => {
 
     // Find user by CNIC
     const user = await User.findOne({ cnic });
-    console.log(user)
+
     // Render HTML response
     res.send(`
-      
+     
               ${user.name}
               ${user.cnic}
-          
+              
+            
     `);
   } catch (error) {
     console.error(error);

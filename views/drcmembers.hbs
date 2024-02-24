@@ -1,0 +1,35 @@
+<!-- views/drcmembers.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DRC Members</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-100 p-4">
+
+  <h1 class="text-3xl font-bold mb-4">DRC Members</h1>
+
+  <form action="/drcmembers" method="POST" class="mb-4">
+    <label class="block mb-2">Name:</label>
+    <input type="text" name="name" class="border p-2 mb-2" required>
+
+    <label class="block mb-2">Position:</label>
+    <input type="text" name="position" class="border p-2 mb-4" required>
+
+    <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Add Member</button>
+  </form>
+
+  <ul>
+    {{#each members}}
+      <li class="bg-white p-4 mb-2 flex justify-between items-center">
+        <span>{{name}} - {{position}}</span>
+        <a href="/drcmembers/{{_id}}/delete" class="text-red-500">Delete</a>
+        <!-- Add links for updating members -->
+      </li>
+    {{/each}}
+  </ul>
+
+</body>
+</html>

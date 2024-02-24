@@ -1,27 +1,31 @@
-<!-- views/user.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1 class="text-2xl mb-4">User Page</h1>
 
-<html>
-  <head>
-    <title>User Data</title>
-  </head>
-  <body>
-    <h1>User Data</h1>
-    <table border="1" >
-      <tr>
-        <th>Name</th>
-        <th>CNIC</th>
-        <th>Actions</th>
-      </tr>
-      <% users.forEach(user => { %>
-        <tr>
-          <td><%= $users.name %></td>
-          <td><%= users.cnic %></td>
-          <td>
-            <a href="/user/update/<%= user._id %>">Update</a>
-            <a href="/user/delete/<%= user._id %>">Delete</a>
-          </td>
-        </tr>
-      <% }); %>
-    </table>
-  </body>
+<form action="/add-user" method="post" class="mb-4">
+  <label for="name">Name:</label>
+  <input type="text" name="name" required class="mr-2">
+  <label for="email">Email:</label>
+  <input type="email" name="email" required class="mr-2">
+  <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Add User</button>
+</form>
+
+<ul>
+  {{#each users}}
+  <li class="mb-2">
+    {{name}} - {{email}}
+    <a href="/update-user/{{_id}}" class="text-blue-500 ml-2">Update</a>
+    <a href="/delete-user/{{_id}}" class="text-red-500 ml-2">Delete</a>
+  </li>
+  {{/each}}
+</ul>
+
+</body>
 </html>

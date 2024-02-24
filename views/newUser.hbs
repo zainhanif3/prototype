@@ -1,0 +1,14 @@
+<!-- views/newUser.hbs -->
+<h1 class="text-2xl font-bold mb-4">Add New User</h1>
+
+<form action="/users" method="post">
+    <label for="name" class="block mb-2">Name:</label>
+    <input type="text" id="name" name="name" class="border px-4 py-2 mb-4" required>
+
+    <label for="email" class="block mb-2">Email:</label>
+    <input type="email" id="email" name="email" class="border px-4 py-2 mb-4" required>
+
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2">Add User</button>
+</form>
+
+<a href="/users" class="block mt-4 text-blue-500">Back to User List</a>

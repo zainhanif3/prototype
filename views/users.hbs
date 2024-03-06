@@ -1,31 +1,25 @@
-<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <style>
-    main{
-      width: 50%;
-      margin: 50px auto;
-      text-align: center;
-    }
-    table{
-      margin: 50px auto;
-    }
-    table,th,td{
-      border-collapse: collapse;
-      border: 1px solid black;
-    }
-    th , td {
-      padding: 5px;
-    }
-  </style>
-</head>
-<body>
-    <div class="container">
-      <a href="./adduser"> Add User only </a><br><br><br>
-      <a href="./user"> Add / Remove User  </a>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+  </head>
+  <body class="bg-gray-100">
+
+    <div class="container mx-auto text-center my-16">
+      <a
+        href="./adduser"
+        class="block bg-blue-500 text-white py-2 px-4 rounded mb-4"
+      >Add User only</a>
+      <a
+        href="./user"
+        class="block bg-green-500 text-white py-2 px-4 rounded"
+      >Add / Remove User</a>
     </div>
-</body>
+
+  </body>
 </html>

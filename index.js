@@ -11,6 +11,7 @@ mongoose.connect("mongodb://localhost:27017/prototype", {
   // useNewUrlParser: true,
   // useUnifiedTopology: true,
 });
+app.use('/img', express.static(path.join(__dirname, 'img')));
 app.use("views", express.static("views"));
 //user model
 const User = mongoose.model("User", {

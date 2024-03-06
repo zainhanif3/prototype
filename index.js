@@ -68,8 +68,8 @@ app.get("/signin", (req, res) => {
 app.get("/adduser", (req, res) => {
   res.render("adduser");
 });
-app.get("/user", (req, res) => {
-  res.render("user");
+app.get("/add-user", (req, res) => {
+  res.render("add-user");
 });
 app.get("/password", (req, res) => {
   res.render("password");
@@ -97,6 +97,12 @@ app.get("/admin", (req, res) => {
 });
 app.get("/users", (req, res) => {
   res.render("users");
+});
+app.get("/update-member", (req, res) => {
+  res.render("update-member");
+});
+app.get("/update-user", (req, res) => {
+  res.render("update-user");
 });
 
 // Handle user registration
@@ -313,33 +319,21 @@ app.get("/users", async (req, res) => {
 
 //add update and delete user
 
+// app.get("/user", async (req, res) => {
+//   const users = await User.find();
+//   res.render("user", { users });
+// });
 app.get("/user", async (req, res) => {
-  const users = await User.find();
-  res.render("user", { users });
+  try {
+    const users = await User.find();
+    res.render("user", { users });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
-app.post("/add-user", async (req, res) => {
-  const { name, email, password } = req.body;
-  const newUser = new User({ name, email,password});
-  await newUser.save();
-  res.redirect("/user");
-});
 
-app.put("/update-user/:id", async (req, res) => {
-  const { name, email } = req.body;
-  await User.findByIdAndUpdate(req.params.id, { name, email, });
-  res.redirect("/user");
-});
-
-app.delete("/delete-user/:id", async (req, res) => {
-  await User.findByIdAndDelete(req.params.id);
-  res.redirect("/user");
-});
-app.get('/fetch-users', async (req, res) => {
-  // Fetch all users from MongoDB
-  const users = await User.find();
-  res.json(users);
-});
 
 app.get("/search", async (req, res) => {
   const { searchTerm, searchType } = req.query;
@@ -367,6 +361,76 @@ app.get("/search", async (req, res) => {
 
   res.render("user", { users });
 });
+
+// Update user route
+app.get('/add-user/:id/update', async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findById(userId);
+
+    res.render('update-user', { user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+// Form for updating members
+app.get('/add-user/:id/update', async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findById(userId);
+
+    res.render('update-user', { user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+// Update user route
+app.route('/add-user/:id/update')
+  .get(async (req, res) => {
+    try {
+      const userId = req.params.id;
+      const user = await User.findById(userId);
+
+      res.render('update-user', { user });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    }
+  })
+  .post(async (req, res) => {
+    try {
+      const userId = req.params.id;
+      const updateData = {
+        name: req.body.name,
+        email: req.body.email,
+      };
+
+      await User.findByIdAndUpdate(userId, updateData);
+      res.redirect('/user');
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+
+// Delete user route
+app.get('/add-user/:id/delete', async (req, res) => {
+  try {
+    const userId = req.params.id;
+    await User.findByIdAndDelete(userId);
+    res.redirect('/user');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

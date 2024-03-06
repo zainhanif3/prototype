@@ -307,6 +307,21 @@ app.post("/adminsignin", async (req, res) => {
   }
 });
 
+// add users detail
+
+app.post("/add-user", async (req, res) => {
+  const { name, email, password } = req.body;
+
+  try {
+    await User.create({ name, email , password });
+    res.redirect("/user");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+// fetch user detail 
 app.get("/users", async (req, res) => {
   try {
     const users = await User.find();
@@ -317,12 +332,7 @@ app.get("/users", async (req, res) => {
   }
 });
 
-//add update and delete user
 
-// app.get("/user", async (req, res) => {
-//   const users = await User.find();
-//   res.render("user", { users });
-// });
 app.get("/user", async (req, res) => {
   try {
     const users = await User.find();

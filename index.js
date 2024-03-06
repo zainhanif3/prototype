@@ -98,9 +98,7 @@ app.get("/admin", (req, res) => {
 app.get("/users", (req, res) => {
   res.render("users");
 });
-app.get("/update-member", (req, res) => {
-  res.render("update-member");
-});
+
 // Handle user registration
 app.post("/register", async (req, res) => {
   try {
@@ -244,6 +242,8 @@ app.post('/drcmembers/:id/update', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+
+
 
 
 

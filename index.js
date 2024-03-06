@@ -271,21 +271,26 @@ app.get("/user", async (req, res) => {
 });
 
 app.post("/add-user", async (req, res) => {
-  const { name, email } = req.body;
-  const newUser = new User({ name, email });
+  const { name, email, password } = req.body;
+  const newUser = new User({ name, email,password});
   await newUser.save();
   res.redirect("/user");
 });
 
-app.post("/update-user/:id", async (req, res) => {
+app.put("/update-user/:id", async (req, res) => {
   const { name, email } = req.body;
-  await User.findByIdAndUpdate(req.params.id, { name, email });
+  await User.findByIdAndUpdate(req.params.id, { name, email, });
   res.redirect("/user");
 });
 
-app.get("/delete-user/:id", async (req, res) => {
+app.delete("/delete-user/:id", async (req, res) => {
   await User.findByIdAndDelete(req.params.id);
   res.redirect("/user");
+});
+app.get('/fetch-users', async (req, res) => {
+  // Fetch all users from MongoDB
+  const users = await User.find();
+  res.json(users);
 });
 
 app.get("/search", async (req, res) => {

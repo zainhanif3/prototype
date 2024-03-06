@@ -1,0 +1,24 @@
+<!-- views/update-member.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ... (your existing head content) -->
+</head>
+<body class="bg-gray-100 p-4">
+
+  <h1 class="text-3xl font-bold mb-4">Update Member</h1>
+
+  <form action="/drcmembers/{{member._id}}/update" method="POST" class="mb-4">
+    <label class="block mb-2">Name:</label>
+    <input type="text" name="name" value="{{member.name}}" class="border p-2 mb-2" required>
+
+    <label class="block mb-2">Position:</label>
+    <input type="text" name="position" value="{{member.position}}" class="border p-2 mb-4" required>
+
+    <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Update Member</button>
+  </form>
+
+  <a href="/drcmembers" class="text-blue-500">Back to Members</a>
+
+</body>
+</html>

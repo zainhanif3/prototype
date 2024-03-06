@@ -1,0 +1,24 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+</head>
+<body class="bg-gray-100 p-4">
+
+  <h1 class="text-3xl font-bold mb-4">Update User</h1>
+
+  <form action="/add-user/{{member._id}}/update" method="POST" class="mb-4">
+    <label class="block mb-2">Name:</label>
+    <input type="text" name="name" value="{{user.name}}" class="border p-2 mb-2" required>
+
+    <label class="block mb-2">Email:</label>
+    <input type="text" name="email" value="{{user.email}}" class="border p-2 mb-4" required>
+
+    <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Update User</button>
+  </form>
+
+  <a href="/user" class="text-blue-500">Back to User</a>
+
+</body>
+</html>

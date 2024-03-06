@@ -98,7 +98,9 @@ app.get("/admin", (req, res) => {
 app.get("/users", (req, res) => {
   res.render("users");
 });
-
+app.get("/update-member", (req, res) => {
+  res.render("update-member");
+});
 // Handle user registration
 app.post("/register", async (req, res) => {
   try {
@@ -198,6 +200,52 @@ app.get("/drcmembers/:id/delete", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
+
+
+// Update route
+app.get('/drcmembers/:id/update', async (req, res) => {
+  try {
+    const memberId = req.params.id;
+    const member = await DRCMember.findById(memberId);
+
+    res.render('update-member', { member });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+// Form for updating members
+app.get('/drcmembers/:id/update', async (req, res) => {
+  try {
+    const memberId = req.params.id;
+    const member = await DRCMember.findById(memberId);
+
+    res.render('update-member', { member });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+// Handle member updates
+app.post('/drcmembers/:id/update', async (req, res) => {
+  try {
+    const memberId = req.params.id;
+    const updatedData = {
+      name: req.body.name,
+      position: req.body.position,
+    };
+
+    await DRCMember.findByIdAndUpdate(memberId, updatedData);
+    res.redirect('/drcmembers'); 
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
 
 //sign in check
 app.post("/signin", async (req, res) => {

@@ -7,11 +7,11 @@ const port = 3000;
 const hbs = require("hbs");
 const session = require("express-session");
 const passport = require("passport");
-// mongoose.connect("mongodb://localhost:27017/prototype", {
-//   // useNewUrlParser: true,
-//   // useUnifiedTopology: true, 
-// });
-mongoose.connect( "mongodb+srv://zainhanif:asdf1234@cluster0.wef2faq.mongodb.net/prototype");
+mongoose.connect("mongodb://localhost:27017/prototype", {
+  // useNewUrlParser: true,
+  // useUnifiedTopology: true, 
+});
+// mongoose.connect( "mongodb+srv://zainhanif:asdf1234@cluster0.wef2faq.mongodb.net/prototype");
 app.use('/img', express.static(path.join(__dirname, 'img')));
 app.use("views", express.static("views"));
 //user model

@@ -9,7 +9,7 @@ const session = require("express-session");
 const passport = require("passport");
 // mongoose.connect("mongodb://localhost:27017/prototype", {
 //   // useNewUrlParser: true,
-//   // useUnifiedTopology: true,
+//   // useUnifiedTopology: true, 
 // });
 mongoose.connect( "mongodb+srv://zainhanif:asdf1234@cluster0.wef2faq.mongodb.net/prototype");
 app.use('/img', express.static(path.join(__dirname, 'img')));
@@ -106,6 +106,7 @@ app.get("/update-member", (req, res) => {
 app.get("/update-user", (req, res) => {
   res.render("update-user");
 });
+
 
 // Handle user registration
 app.post("/register", async (req, res) => {
